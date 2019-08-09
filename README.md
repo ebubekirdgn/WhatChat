@@ -3,16 +3,16 @@
 Framework7 is an open source framework7, which let you develop mobile, desktop or web app with a native look and feel
 
 
-######This project will cover 
+This project will cover 
 
-Firebase user Authentication
+* Firebase user Authentication
 
-Forget the password
+* Forget the password
 
-Email Verification
+* Email Verification
 
-Firebase real time database
+* Firebase real time database
 
-One on one chat
+* One on one chat
 
-Group chat
+* Group chat
