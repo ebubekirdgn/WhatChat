@@ -47,5 +47,6 @@ export default {
     border-radius: 50%;
     margin: 20px;
     object-fit: cover;
+    object-position: center;
 }
 </style>
