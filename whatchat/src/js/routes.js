@@ -11,6 +11,7 @@ import RequestAndLoad from '../pages/request-and-load.vue';
 import NotFoundPage from '../pages/404.vue';
 
 import SignInPage from  '../pages/auth/signin.vue';
+import SignUpPage from  '../pages/auth/signup.vue';
 
 var routes = [
   {
@@ -40,6 +41,10 @@ var routes = [
   {
     path: '/signin/',
     component: SignInPage,
+  },
+  {
+    path: '/signup/',
+    component: SignUpPage,
   },
   {
     path: '/dynamic-route/blog/:blogId/post/:postId/',

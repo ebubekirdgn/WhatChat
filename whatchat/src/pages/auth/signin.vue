@@ -15,7 +15,7 @@
       <br>
       <div style="text-align:center">
         <f7-link>Resend Confirmation Email</f7-link><br>
-        <f7-link>Don't have an account? Sign Up</f7-link><br>
+        <f7-link href="/signup/">Don't have an account? Sign Up</f7-link><br>
         <f7-link>Forgot Password</f7-link><br>
       </div> 
     </f7-block>
