@@ -16,7 +16,8 @@ import '../css/app.css';
 
 // Import App Component
 import App from '../components/app.vue';
-import store from '../pages/store/'
+import store from  "../pages/store/store"
+
 // Init Framework7-Vue Plugin
 Framework7.use(Framework7Vue);
 

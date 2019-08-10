@@ -18,7 +18,7 @@
     </f7-list>
     
     <f7-block>
-      <f7-button outline>Sign Up </f7-button>
+      <f7-button outline @click="signUp">Sign Up </f7-button>
     </f7-block>
   </f7-page>
 </template>
@@ -31,6 +31,19 @@ export default {
       email:null,
       password:null,
       image_url:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1024px-Circle-icons-profile.svg.png'
+    }
+  },
+  methods : {
+    signUp(){
+        const self = this
+        var payload = {}
+        payload.name = this.name
+        payload.email = this.email
+        payload.password = this.password
+        payload.photoURL = this.image_url
+        //alert(JSON.stringify(payload))
+        this.$store.dispatch('signUp',payload)
+      
     }
   }
 }
