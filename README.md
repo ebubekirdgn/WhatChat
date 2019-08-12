@@ -17,7 +17,7 @@ This project will cover
 
 * Group chat
 
-Installation steps
+#Installation steps
  First of all you should go to visit this web site : https://framework7.io/cli/
  
  * $ npm install -g cordova
