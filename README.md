@@ -16,3 +16,10 @@ This project will cover
 * One on one chat
 
 * Group chat
+
+Installation steps
+ First of all you should go to visit this web site : https://framework7.io/cli/
+ 
+ 1 - $ npm install -g cordova
+ 2 - $ npm install -g framework7-cli
+ 3 - $ framework7 create --ui
