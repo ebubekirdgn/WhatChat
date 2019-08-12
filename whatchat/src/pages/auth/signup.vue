@@ -37,12 +37,11 @@ export default {
             name: null,
             email: null,
             password: null,
-            image_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1024px-Circle-icons-profile.svg.png"
         };
     },
     computed: {
-        alert_message() {
-            return this.$store.getters.alert_message
+        image_url() {
+            return this.$store.getters.image_url
         }
     },
     watch: {
@@ -60,6 +59,7 @@ export default {
         },
         onFilePicked(){
             //read the image file
+            this.$store.dispatch("readFile");
         },
         signUp() {
             const self = this;
