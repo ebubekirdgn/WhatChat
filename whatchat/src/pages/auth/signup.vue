@@ -21,10 +21,16 @@
 </template>
 
 <script>
-import {
+/*import {
     setTimeout
-} from 'timers';
+} from 'timers';*/
+
+import {
+    mixin
+} from '../../js/mixin'
+
 export default {
+    mixins: [mixin],
     data() {
         return {
             name: null,
