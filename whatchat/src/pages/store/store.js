@@ -9,10 +9,14 @@ export default new Vuex.Store({
         auth: AuthModule
     },
     state: {
-        count: 0,
-        message: 'message from vue'
+        alert_message: null
+    },
+    getters: {
+        alert_message: state => state.alert_message
     },
     mutations: {
-
+        setAlertMessage(state, payload) {
+            state.alert_message = payload
+        }
     }
 })

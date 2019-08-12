@@ -9,7 +9,7 @@
       <f7-nav-right>
         <f7-link icon-ios="f7:menu" icon-aurora="f7:menu" icon-md="material:menu" panel-open="right"></f7-link>
       </f7-nav-right>
-      <f7-nav-title-large sliding>WhatChat {{message}}</f7-nav-title-large>
+      <f7-nav-title-large sliding>WhatChat </f7-nav-title-large>
     </f7-navbar>
 
     <!-- Page content-->
@@ -70,10 +70,7 @@
 <script>
 export default {
   computed : {
-    message()
-    {
-     return this.$store.state.message
-    }
+   
   }
    
 }
