@@ -3,7 +3,7 @@
     <f7-navbar title="Sign Up" back-link="Back"></f7-navbar>
 
     <div class="wrapper">
-        <img class="image--cover" :src="image_url" alt />
+        <img class="image--cover" :src="image_url" alt @click="launchFilePicker" />
     </div>
 
     <f7-list no-hairlines-md>
@@ -16,6 +16,7 @@
 
     <f7-block>
         <f7-button outline @click="signUp">Sign Up</f7-button>
+        <input type="file" ref="file" style="display:none;" @change="onFilePicked"/>
     </f7-block>
 </f7-page>
 </template>
@@ -54,6 +55,12 @@ export default {
         }
     },
     methods: {
+        launchFilePicker() {
+          this.$refs.file.click()
+        },
+        onFilePicked(){
+            //read the image file
+        },
         signUp() {
             const self = this;
             var payload = {};
