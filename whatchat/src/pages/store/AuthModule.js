@@ -1,6 +1,17 @@
 import firebase from 'firebase';
 
 const AuthModule = {
+    state: {
+        signed_up: false
+    },
+    getters: {
+        signed_up: state => state.signed_up
+    },
+    mutations: {
+        setSignedUp(state, payload) {
+            state.signed_up = payload
+        }
+    },
     actions: {
         signUp({ commit }, payload) {
             firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
@@ -18,6 +29,7 @@ const AuthModule = {
                         photoURL: payload.photoURL
                     })
                         .then(() => {
+                            commit('setSignedUp',true)
                             console.log("Updated Profile")
                         }).catch(err => {
                             console.log(err.message)

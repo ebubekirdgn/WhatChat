@@ -45,15 +45,23 @@ export default {
         },
         files() {
             return this.$store.getters.files
+        },
+        signed_up() {
+            return this.$store.getters.signed_up
         }
     },
     watch: {
-        alert_message(value) {
-            const sef = this;
-            this.showToastBottom(value)
-            setTimeout(() => {
-                this.$store.commit('setAlertMessage', null)
-            }, 200)
+        /*  alert_message(value) {
+              const sef = this;
+              this.showToastBottom(value)
+              setTimeout(() => {
+                  this.$store.commit('setAlertMessage', null)
+              }, 200)
+          }*/
+        signed_up(value) {
+            if (value == true) {
+                this.$f7router.navigate('/signin/')
+            }
         }
     },
     methods: {
@@ -96,6 +104,9 @@ export default {
             //Open it
             self.toastBottom.open();
         },
+    },
+    created() {
+        this.$store.commit('setSignedUp', false)
     }
 };
 </script>
