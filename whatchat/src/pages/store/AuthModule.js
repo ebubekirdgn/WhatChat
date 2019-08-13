@@ -22,7 +22,18 @@ const AuthModule = {
             firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
                 .then(user => {
                     //logined in
-                    commit('setSignedIn', true)
+                    firebase.auth().onAuthStateChanged(function (user) {
+                        if (user.emailVerified) {
+                            //User is signed in
+                            commit('setSignedIn', true)
+                            commit('setAlertMessage',user.displayName + "Welcome")
+
+                        } else {
+                            //No user is signed in
+                            commit('setSignedIn', false)
+                            commit('setAlertMessage',"Please verify with your email")
+                        }
+                    })
                 })
                 .catch(function (error) {
                     // Handle Errors here.
@@ -66,7 +77,7 @@ const AuthModule = {
         },
         signOut({ commit }) {
             firebase.auth().signOut().then(() => {
-                commit('setSignedIn',false)
+                commit('setSignedIn', false)
             })
         },
         sendVerification({ commit }) {
