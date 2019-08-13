@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
         auth: AuthModule,
-        file:FileModule
+        file: FileModule
     },
     state: {
         alert_message: null
