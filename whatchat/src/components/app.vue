@@ -11,6 +11,7 @@
                 <f7-block>Left panel content goes here</f7-block>
                 <f7-list>
                     <f7-list-item link="/signin/" view=".view-main" panel-close title="Sign In"></f7-list-item>
+                    <f7-list-item @click="signOut" view=".view-main" panel-close title="Sign Out"></f7-list-item>
                 </f7-list>
             </f7-page>
         </f7-view>
@@ -167,6 +168,11 @@ export default {
             this.$f7.dialog.alert(
                 "Username: " + this.username + "<br>Password: " + this.password
             );
+        },
+        signOut() {
+            const app = this.$f7
+            this.$store.dispatch('signOut')
+            app.panel.close()
         }
     },
     mounted() {

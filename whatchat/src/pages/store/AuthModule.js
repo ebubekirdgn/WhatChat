@@ -64,6 +64,11 @@ const AuthModule = {
                     commit('setAlertMessage', err.message)
                 })
         },
+        signOut({ commit }) {
+            firebase.auth().signOut().then(() => {
+                commit('setSignedIn',false)
+            })
+        },
         sendVerification({ commit }) {
             var user = firebase.auth().currentUser;
             user.sendEmailVerification()
