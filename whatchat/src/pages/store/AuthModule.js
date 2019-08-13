@@ -13,7 +13,7 @@ const AuthModule = {
         }
     },
     actions: {
-        signUp({ commit }, payload) {
+        signUp({ commit, dispatch }, payload) {
             firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
                 .then(data => {
                     firebase.database().ref('users').child(data.user.uid).set({
@@ -29,7 +29,8 @@ const AuthModule = {
                         photoURL: payload.photoURL
                     })
                         .then(() => {
-                            commit('setSignedUp',true)
+                            dispatch('sendVerification')
+                            commit('setSignedUp', true)
                             console.log("Updated Profile")
                         }).catch(err => {
                             console.log(err.message)
@@ -38,7 +39,18 @@ const AuthModule = {
                 }).catch(err => {
                     console.log(err.message)
                     commit('setAlertMessage', err.message)
-                });
+                })
+        },
+        sendVerification({ commit }) {
+            var user = firebase.auth().currentUser;
+            user.sendEmailVerification()
+                .then(function () {
+                    //Email Sent
+                    commit('setAlertMessage', `A verification email has been sent to ${user.email}`)
+                })
+                .catch(function (error) {
+                    //An error happened
+                })
         }
     }
 }
