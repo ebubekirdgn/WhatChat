@@ -14,7 +14,7 @@
         <f7-button outline @click="signIn">Sign In </f7-button>
         <br>
         <div style="text-align:center">
-            <f7-link @click="resendEmail">Resend Confirmation Email <span v-if="time_left > 0"></span> </f7-link><br>
+            <f7-link @click="resendEmail" :color="color(time_left)">Resend Confirmation Email <span v-if="time_left > 0"> </span> </f7-link><br>
             <f7-link href="/signup/">Don't have an account? Sign Up</f7-link><br>
             <f7-link>Forgot Password</f7-link>
             <br>
@@ -38,6 +38,13 @@ export default {
         }
     },
     methods: {
+        color(timeleft) {
+            if (timeleft <= 0) {
+                return '#007aff'
+            }else{
+                return 'gray'
+            }
+        },
         resendEmail() {
             const self = this
 
