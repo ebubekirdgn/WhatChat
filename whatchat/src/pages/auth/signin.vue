@@ -43,7 +43,7 @@ export default {
     mixins: [mixin],
     computed: {
         show_resend_email() {
-            this.$store.getters.show_resend_email
+          return  this.$store.getters.show_resend_email
         }
     },
     methods: {
@@ -56,7 +56,7 @@ export default {
         },
         resendEmail() {
             const self = this
-
+            console.log(self.time_left)
             if (self.time_left <= 0) {
                 console.log('trigger resend')
                 self.$store.dispatch('sendVerification')
@@ -68,7 +68,7 @@ export default {
             self.time_left = 20
             var timer = setInterval(function () {
                 self.time_left -= 1
-                console.log('time_left', self.time_left)
+                console.log('time left', self.time_left)
                 if (self.time_left <= 0) {
                     clearInterval(timer)
                 }

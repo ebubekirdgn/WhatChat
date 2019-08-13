@@ -28,19 +28,25 @@ const AuthModule = {
                 .then(user => {
                     //logined in
                     firebase.auth().onAuthStateChanged(function (user) {
-                        if (user.emailVerified) {
-                            //User is signed in
-                            commit('setSignedIn', true)
-                            commit('setAlertMessage', user.displayName + "Welcome")
-                            console.log('verified')
-                            commit("setSignedIn", true)
-                            commit("setShowResendEmail", false)
+                        if (user != null) {
+                            console.log('User in action', user)
+                            if (user.emailVerified) {
+                                console.log(user.displayName)
+                              
+                                commit('setAlertMessage', `Welcome ${user.displayName}`);
+                                console.log('verified')
+                                commit("setSignedIn", true)
+                                commit("setShowResendEmail", false)
 
-                        } else {
-                            //No user is signed in
-                            commit("setSignedIn", false)
-                            commit("setAlertMessage", "Please verify with your email")
-                            commit("setShowResendEmail", true)
+                            } else {
+                                //No user is signed in
+                                commit("setSignedIn", false)
+                                commit("setAlertMessage", "Please verify with your email")
+                                commit("setShowResendEmail", true)
+                            }
+                        }
+                        else{
+                            return;
                         }
                     })
                 })
