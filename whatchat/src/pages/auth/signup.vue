@@ -16,7 +16,7 @@
 
     <f7-block>
         <f7-button outline @click="signUp">Sign Up</f7-button>
-        <input type="file" ref="file" style="display:none;" @change="onFilePicked"/>
+        <input type="file" ref="file" style="display:none;" @change="onFilePicked" />
     </f7-block>
 </f7-page>
 </template>
@@ -42,6 +42,9 @@ export default {
     computed: {
         image_url() {
             return this.$store.getters.image_url
+        },
+        files() {
+            return this.$store.getters.files
         }
     },
     watch: {
@@ -55,9 +58,9 @@ export default {
     },
     methods: {
         launchFilePicker() {
-          this.$refs.file.click()
+            this.$refs.file.click()
         },
-        onFilePicked(){
+        onFilePicked() {
             //read the image file
             this.$store.dispatch("readFile");
         },
@@ -68,8 +71,16 @@ export default {
             payload.email = this.email;
             payload.password = this.password;
             payload.photoURL = this.image_url;
+            if (self.files) {
+                self.$store.dispatch('uploadFile').then(url => {
+                    payload.photoURL = url
+                    self.$store.dispatch('signUp', payload);
+                })
+            } else {
+                this.$store.dispatch('signUp', payload);
+            }
+
             //alert(JSON.stringify(payload))
-            this.$store.dispatch("signUp", payload);
         },
         showToastBottom(text) {
             const self = this;

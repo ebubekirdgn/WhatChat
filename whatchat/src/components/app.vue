@@ -124,7 +124,7 @@ var firebaseConfig = {
   authDomain: "whatchat-556c9.firebaseapp.com",
   databaseURL: "https://whatchat-556c9.firebaseio.com",
   projectId: "whatchat-556c9",
-  storageBucket: "",
+  storageBucket: "whatchat-556c9.appspot.com",
   messagingSenderId: "816500428752",
   appId: "1:816500428752:web:fa880e656912d590"
 };
