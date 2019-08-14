@@ -10,7 +10,7 @@
                 <div class="wrapper">
                     <img :src="photo_url" class="image--cover">
                 </div>
-                <f7-block style="text-align:center;"> {{display_name}} </f7-block>
+                <f7-block style="text-align:center; text-color:white;"> {{display_name}} </f7-block>
                 <f7-list>
                     <f7-list-item link="/signin/" view=".view-main" panel-close title="Sign In"></f7-list-item>
                     <f7-list-item @click="signOut" view=".view-main" panel-close title="Sign Out"></f7-list-item>
