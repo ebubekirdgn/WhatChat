@@ -7,16 +7,13 @@
     </div>
 
     <f7-list no-hairlines-md>
-        <f7-list-input label="Your Name" :value="name" @input="name=$event.target.value" type="text" placeholder="Your Name" clear-button></f7-list-input>
-
-        <f7-list-input label="E-mail" :value="email" @input="email=$event.target.value" type="email" placeholder="Your E-mail" clear-button></f7-list-input>
-
-        <f7-list-input label="Password" :value="password" @input="password=$event.target.value" type="password" placeholder="Your password" clear-button></f7-list-input>
+        <f7-list-input label="Your Name" :value="display_name" @input="display_name=$event.target.value" type="text" placeholder="Your Name" clear-button></f7-list-input>
     </f7-list>
 
     <f7-block>
-        <f7-button outline @click="signUp">Update</f7-button>
+        <f7-button outline @click="updateProfile">Update Profile</f7-button>
         <input type="file" ref="file" style="display:none;" @change="onFilePicked" />
+        {{display_name}}
     </f7-block>
 </f7-page>
 </template>
@@ -40,14 +37,22 @@ export default {
         };
     },
     computed: {
+        display_name: {
+            get: function () {
+                return this.$store.getters.display_name
+            },
+            set: function (newValue) {
+                return this.$store.commit('setDisplayName', newValue)
+            }
+        },
         image_url() {
             return this.$store.getters.image_url
         },
         files() {
             return this.$store.getters.files
         },
-        signed_up() {
-            return this.$store.getters.signed_up
+        photo_url() {
+            return this.$store.getters.photo_url
         }
     },
     watch: {
@@ -58,11 +63,6 @@ export default {
                   this.$store.commit('setAlertMessage', null)
               }, 200)
           }*/
-        signed_up(value) {
-            if (value == true) {
-                this.$f7router.navigate('/signin/')
-            }
-        }
     },
     methods: {
         launchFilePicker() {
@@ -72,25 +72,12 @@ export default {
             //read the image file
             this.$store.dispatch("readFile");
         },
-        signUp() {
-            const self = this;
-            var payload = {};
-            payload.name = this.name;
-            payload.email = this.email;
-            payload.password = this.password;
-            payload.photoURL = this.image_url;
-            if (self.files) {
-                self.$store.dispatch('uploadFile').then(url => {
-                    payload.photoURL = url
-                    self.$store.dispatch('signUp', payload);
-                })
-            } else {
-                this.$store.dispatch('signUp', payload);
-            }
+        updateProfile(){
 
-            //alert(JSON.stringify(payload))
         },
-        showToastBottom(text) {
+
+        
+        /*showToastBottom(text) {
             const self = this;
             //Create Toast
             if (!self.toastBottom || self.toastBottom.destroyed) {
@@ -103,10 +90,12 @@ export default {
             }
             //Open it
             self.toastBottom.open();
-        },
+        },*/
     },
     created() {
-        this.$store.commit('setSignedUp', false)
+        if (this.photo_url != null) {
+            this.$store.commit('setImageURL', this.photo_url);
+        }
     }
 };
 </script>
