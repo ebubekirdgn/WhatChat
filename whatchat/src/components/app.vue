@@ -7,8 +7,10 @@
     <f7-panel left cover theme-dark>
         <f7-view>
             <f7-page>
-                <f7-navbar title="Left Panel"></f7-navbar>
-                <f7-block>Left panel content goes here</f7-block>
+                <div class="wrapper">
+                    <img :src="photo_url" class="image--cover">
+                </div>
+                <f7-block style="text-align:center;"> {{display_name}} </f7-block>
                 <f7-list>
                     <f7-list-item link="/signin/" view=".view-main" panel-close title="Sign In"></f7-list-item>
                     <f7-list-item @click="signOut" view=".view-main" panel-close title="Sign Out"></f7-list-item>
@@ -161,7 +163,13 @@ export default {
     computed: {
         signed_in() {
             return this.$store.getters.signed_in
-        }
+        },
+        photo_url() {
+            return this.$store.getters.photo_url
+        },
+        display_name() {
+            return this.$store.getters.display_name
+        },
     },
     methods: {
         alertLoginData() {
@@ -186,3 +194,18 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.wrapper {
+    text-align: center;
+}
+
+.image--cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 20px;
+    object-fit: cover;
+    object-position: center;
+}
+</style>

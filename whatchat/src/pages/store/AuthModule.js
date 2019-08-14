@@ -4,12 +4,16 @@ const AuthModule = {
     state: {
         signed_in: false,
         signed_up: false,
-        show_resend_email: false
+        show_resend_email: false,
+        photo_url: null,
+        display_name: null
     },
     getters: {
         signed_in: state => state.signed_in,
         signed_up: state => state.signed_up,
-        show_resend_email: state => state.show_resend_email
+        show_resend_email: state => state.show_resend_email,
+        photo_url: state => state.photo_url,
+        display_name: state => state.display_name
     },
     mutations: {
         setSignedIn(state, payload) {
@@ -20,6 +24,12 @@ const AuthModule = {
         },
         setShowResendEmail(state, payload) {
             state.show_resend_email = payload
+        },
+        setPhotoURL(state, payload) {
+            state.photo_url = payload
+        },
+        setDisplayName(state, payload) {
+            state.display_name = payload
         }
     },
     actions: {
@@ -32,7 +42,7 @@ const AuthModule = {
                             console.log('User in action', user)
                             if (user.emailVerified) {
                                 console.log(user.displayName)
-                              
+
                                 commit('setAlertMessage', `Welcome ${user.displayName}`);
                                 console.log('verified')
                                 commit("setSignedIn", true)
@@ -45,7 +55,7 @@ const AuthModule = {
                                 commit("setShowResendEmail", true)
                             }
                         }
-                        else{
+                        else {
                             return;
                         }
                     })
