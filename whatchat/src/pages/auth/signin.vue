@@ -16,7 +16,7 @@
         <div style="text-align:center">
             <f7-link v-if="show_resend_email" @click="resendEmail" :color="color(time_left)">Resend Confirmation Email <span v-if="time_left > 0"> </span> </f7-link><br>
             <f7-link href="/signup/">Don't have an account? Sign Up</f7-link><br>
-            <f7-link>Forgot Password</f7-link>
+            <f7-link @click="forgetPassword">Forgot Password</f7-link>
             <br>
             {{time_left}}
         </div>
@@ -32,6 +32,7 @@ import {
 import {
     mixin
 } from '../../js/mixin';
+import firebase from 'firebase'
 export default {
     data() {
         return {
@@ -43,10 +44,26 @@ export default {
     mixins: [mixin],
     computed: {
         show_resend_email() {
-          return  this.$store.getters.show_resend_email
+            return this.$store.getters.show_resend_email
         }
     },
     methods: {
+        forgetPassword() {
+            console.log('forgetPassword')
+            const self = this
+            var auth = firebase.auth()
+
+            if (this.email != null) {
+                auth.sendPasswodResetEmail(this.email).then(function () {
+                    //Email Sent
+                    self.$store.commit('setAlertMessage', 'An reset Email has been sent')
+                }).catch(function (error) {
+                    self.$store.commit('setAlertMessage', error)
+                });
+            } else {
+                self.$store.commit('setAlertMessage', 'Please enter your email')
+            }
+        },
         color(timeleft) {
             if (timeleft <= 0) {
                 return '#007aff'
@@ -76,9 +93,14 @@ export default {
         },
         signIn() {
             var payload = {}
+            console.log(this.email)
             payload.email = this.email
             payload.password = this.password
-            this.$store.dispatch('signIn', payload)
+            if (this.email != null && this.password != null) {
+                this.$store.dispatch('signIn', payload)
+            } else {
+                this.$store.commit('setAlertMessage', 'Please enter your email address or password')
+            }
         }
     }
 }
