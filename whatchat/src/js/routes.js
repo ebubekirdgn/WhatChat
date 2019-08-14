@@ -10,8 +10,9 @@ import DynamicRoutePage from '../pages/dynamic-route.vue';
 import RequestAndLoad from '../pages/request-and-load.vue';
 import NotFoundPage from '../pages/404.vue';
 
-import SignInPage from  '../pages/auth/signin.vue';
-import SignUpPage from  '../pages/auth/signup.vue';
+import SignInPage from '../pages/auth/signin.vue';
+import SignUpPage from '../pages/auth/signup.vue';
+import EditProfilePage from '../pages/auth/editprofile.vue';
 
 var routes = [
   {
@@ -45,6 +46,10 @@ var routes = [
   {
     path: '/signup/',
     component: SignUpPage,
+  }, 
+  {
+    path: '/editprofile/',
+    component: EditProfilePage,
   },
   {
     path: '/dynamic-route/blog/:blogId/post/:postId/',
