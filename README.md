@@ -20,6 +20,9 @@ This project will cover
 # Installation steps
  First of all you should go to visit this web site : https://framework7.io/cli/
  
+ * Npm Install (https://docs.npmjs.com/cli/install)
  * $ npm install -g cordova
  * $ npm install -g framework7-cli
  * $ framework7 create --ui
+ * $ npm install vuex --save
+ * $ npm install firebase --save
