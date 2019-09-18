@@ -94,7 +94,7 @@ export default {
                     })
                 })
             } else {
-                TODO: /*Profile Picture Cannot Load */
+              /*  TODO: Profile Picture Cannot Load */
                /* user.updateProfile({
                     displayName: self.display_name,
                 }).then(function () {
