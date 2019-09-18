@@ -14,6 +14,10 @@ import SignInPage from '../pages/auth/signin.vue';
 import SignUpPage from '../pages/auth/signup.vue';
 import EditProfilePage from '../pages/auth/editprofile.vue';
 
+import ContactsPage from '../pages/chat/contacts.vue';
+import RequestsPage from '../pages/chat/requests.vue';
+
+
 var routes = [
   {
     path: '/',
@@ -50,6 +54,14 @@ var routes = [
   {
     path: '/editprofile/',
     component: EditProfilePage,
+  },
+  {
+    path: '/contacts/',
+    component: ContactsPage,
+  },
+  {
+    path: '/requests/',
+    component: RequestsPage,
   },
   {
     path: '/dynamic-route/blog/:blogId/post/:postId/',

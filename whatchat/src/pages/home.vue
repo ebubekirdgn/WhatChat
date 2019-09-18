@@ -7,12 +7,12 @@
         </f7-nav-left>
         <f7-nav-title sliding>WhatChat</f7-nav-title>
         <f7-nav-right>
-            <f7-link>
+            <f7-link href="/requests/">
                 <f7-icon f7="persons">
                     <f7-badge color="red">5</f7-badge>
                 </f7-icon>
             </f7-link>
-            <f7-link icon-f7="add">
+            <f7-link icon-f7="add" href="/contacts/">
 
             </f7-link>
         </f7-nav-right>
