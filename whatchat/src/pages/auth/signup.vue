@@ -22,10 +22,7 @@
 </template>
 
 <script>
-/*import {
-    setTimeout
-} from 'timers';*/
-
+ 
 import {
     mixin
 } from '../../js/mixin'
@@ -70,7 +67,7 @@ export default {
         },
         onFilePicked() {
             //read the image file
-            this.$store.dispatch("readFile");
+            this.$store.dispatch('readFile')
         },
         signUp() {
             const self = this;

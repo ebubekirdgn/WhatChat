@@ -46,7 +46,7 @@ var routes = [
   {
     path: '/signup/',
     component: SignUpPage,
-  }, 
+  },
   {
     path: '/editprofile/',
     component: EditProfilePage,
