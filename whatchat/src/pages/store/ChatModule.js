@@ -27,7 +27,7 @@ const ChatModule = {
         },
         sendRequest({ commit }, payload) {
             var promise = new Promise((resolve, reject) => {
-                db.firerequest.child(payload.recipient).push({ sender: payload.sender })
+                db.firerequest.child(payload.receipent).push({ sender: payload.sender })
                     .then(() => {
                         resolve({ success: true })
                     }).catch(err => {

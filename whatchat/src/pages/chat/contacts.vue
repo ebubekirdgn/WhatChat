@@ -6,7 +6,7 @@
         <f7-list-item swipeout v-for="(contact, index) in contacts" :key="index" :title="contact.name">
             <img class="small-avatar" :src="contact.photo_url" slot="media">
             <f7-swipeout-actions right>
-                <f7-swipeout-button color="green">Add</f7-swipeout-button>
+                <f7-swipeout-button color="green" @click=" addFrd(contact)">Add</f7-swipeout-button>
             </f7-swipeout-actions>
         </f7-list-item>
     </f7-list>
@@ -14,19 +14,32 @@
 </template>
 
 <script>
+import firebase from 'firebase';
+
 export default {
     computed: {
         contacts() {
             return this.$store.getters.contacts
         }
     },
+    methods: {
+        addFrd(frd) {
+            var request = {}
+            request.sender = firebase.auth().currentUser.uid;
+            request.recipient = frd.uid
+            console.log('request',request)
+            this.$store.dispatch('sendRequest', request)
+
+        },
+    },
+
     created() {
         this.$store.dispatch('getAllUsers')
     }
 }
 </script>>
 
-<style scoped>
+<style scoped> 
 .small-avatar {
     width: 50px;
     height: 50px;
