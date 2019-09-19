@@ -1,13 +1,15 @@
 <template>
 <f7-page name="about">
     <f7-navbar title="Contacts" back-link="Back"></f7-navbar>
-    <f7-block-title>About My App</f7-block-title>
-    <f7-block strong>
-        <p>Fugiat perspiciatis excepturi, soluta quod non ullam deleniti. Nobis sint nemo consequuntur, fugiat. Eius perferendis animi autem incidunt vel quod tenetur nostrum, voluptate omnis quasi quidem illum consequuntur, a, quisquam.</p>
-        <p>Laudantium neque magnam vitae nemo quam commodi, in cum dolore obcaecati laborum, excepturi harum, optio qui, consequuntur? Obcaecati dolor sequi nesciunt culpa quia perspiciatis, reiciendis ex debitis, ut tenetur alias.</p>
-    </f7-block>
-    <pre>{{contacts}}</pre>
 
+    <f7-list media-list>
+        <f7-list-item swipeout v-for="(contact, index) in contacts" :key="index" :title="contact.name">
+            <img class="small-avatar" :src="contact.photo_url" slot="media">
+            <f7-swipeout-actions right>
+                <f7-swipeout-button color="green">Add</f7-swipeout-button>
+            </f7-swipeout-actions>
+        </f7-list-item>
+    </f7-list>
 </f7-page>
 </template>
 
@@ -18,8 +20,18 @@ export default {
             return this.$store.getters.contacts
         }
     },
-    created(){
-      this.$store.dispatch('getAllUsers')
+    created() {
+        this.$store.dispatch('getAllUsers')
     }
 }
 </script>>
+
+<style scoped>
+.small-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+</style>
