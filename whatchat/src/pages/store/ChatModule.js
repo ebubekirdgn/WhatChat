@@ -1,5 +1,6 @@
 import firebase from 'firebase';
-import { resolve, reject } from 'q';
+import * as db from './db';
+
 
 const ChatModule = {
     state: {
@@ -14,15 +15,25 @@ const ChatModule = {
         },
     },
     actions: {
-        getAllUsers({commit}){
-            var promise = new Promise((resolve,reject)=> {
-                firebase.database().ref('users').on('value',function(snapshot){
+        getAllUsers({ commit }) {
+            var promise = new Promise((resolve, reject) => {
+                firebase.database().ref('users').on('value', function (snapshot) {
                     console.log(snapshot.val())
-                    commit('setContacts',snapshot.val())
+                    commit('setContacts', snapshot.val())
                     resolve(snapshot.val())
                 })
             })
             return promise
+        },
+        sendRequest({ commit }, payload) {
+            var promise = new Promise((resolve, reject) => {
+                db.firerequest.child(payload.recipient).push({ sender: payload.sender })
+                    .then(() => {
+                        resolve({ success: true })
+                    }).catch(err => {
+                        reject(err)
+                    })
+            })
         }
     }
 }
