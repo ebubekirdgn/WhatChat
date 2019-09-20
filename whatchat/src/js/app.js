@@ -18,9 +18,11 @@ import '../css/app.css';
 import App from '../components/app.vue';
 import store from "../pages/store/store"
 import firebase from 'firebase'
+import lodash from 'lodash'
+
 
 // Init Framework7-Vue Plugin
-Framework7.use(Framework7Vue);
+Framework7.use(Framework7Vue, lodash);
 let newapp = null
 
 firebase.auth().onAuthStateChanged(function (user) {

@@ -26,7 +26,7 @@ export default {
         addFrd(frd) {
             var request = {}
             request.sender = firebase.auth().currentUser.uid;
-            request.recipient = frd.uid
+            request.receipent = frd.uid
             console.log('request',request)
             this.$store.dispatch('sendRequest', request)
 

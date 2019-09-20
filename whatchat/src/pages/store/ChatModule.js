@@ -15,6 +15,20 @@ const ChatModule = {
         },
     },
     actions: {
+        async getMyRequests({ commit,dispatch }) {
+            var users = await dispatch('getAllUsers')
+
+            db.firerequest.child(firebase.auth().currentUser.uid)
+                .on('value', snapshot => {
+                    console.log('getmyrequests', snapshot.val())
+                    var frd_request_id = _.map(snapshot.val(), "sender")
+                    console.log('frd_request_id', frd_request_id)
+                    console.log('users',users)
+                    _.forEach(frd_request_id, uid => {
+
+                    })
+                })
+        },
         getAllUsers({ commit }) {
             var promise = new Promise((resolve, reject) => {
                 firebase.database().ref('users').on('value', function (snapshot) {
