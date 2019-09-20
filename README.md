@@ -26,3 +26,4 @@ This project will cover
  * $ framework7 create --ui
  * $ npm install vuex --save
  * $ npm install firebase --save
+ * $ npm install --save lodash
