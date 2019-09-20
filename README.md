@@ -21,9 +21,10 @@ This project will cover
  First of all you should go to visit this web site : https://framework7.io/cli/
  
  * Npm Install (https://docs.npmjs.com/cli/install)
- * $ npm install -g cordova
- * $ npm install -g framework7-cli
+ * $ npm i -g cordova
+ * $ npm i -g framework7-cli
  * $ framework7 create --ui
- * $ npm install vuex --save
- * $ npm install firebase --save
- * $ npm install --save lodash
+ * $ npm i vuex --save
+ * $ npm i firebase --save
+ * $ npm i --save lodash
+ * $ npm i @babel/plugin-transform-runtime --save-dev
