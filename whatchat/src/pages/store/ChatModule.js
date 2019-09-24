@@ -4,29 +4,36 @@ import * as db from './db';
 
 const ChatModule = {
     state: {
-        contacts: []
+        contacts: [],
+        friend_requests: [],
     },
     getters: {
         contacts: state => state.contacts,
+        friend_requests: state => state.friend_requests,
     },
     mutations: {
         setContacts(state, payload) {
             state.contacts = payload
         },
+        setFriendRequests(state, payload) {
+            state.friend_requests = payload
+        },
     },
     actions: {
-        async getMyRequests({ commit,dispatch }) {
+        async getMyRequests({ commit, dispatch }) {
             var users = await dispatch('getAllUsers')
 
             db.firerequest.child(firebase.auth().currentUser.uid)
                 .on('value', snapshot => {
-                    console.log('getmyrequests', snapshot.val())
                     var frd_request_id = _.map(snapshot.val(), "sender")
+                    var userdetails = []
                     console.log('frd_request_id', frd_request_id)
-                    console.log('users',users)
+                    console.log('users', users)
                     _.forEach(frd_request_id, uid => {
-
+                        var user = _.find(users, ["uid", uid])
+                        userdetails.push(user)
                     })
+                    commit('setFriendRequests',userdetails)
                 })
         },
         getAllUsers({ commit }) {
