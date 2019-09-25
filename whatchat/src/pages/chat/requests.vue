@@ -18,12 +18,12 @@
 
 <script>
 export default {
-    methods:{
-        confirm(request){
+    methods: {
+        confirm(request) {
 
         },
-        remove(request){
-
+        remove(request) {
+            this.$store.dispatch('deleteRequest',request)
         }
     },
     computed: {
@@ -37,12 +37,13 @@ export default {
     }
 }
 </script>>
-<style scoped> 
-.small-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center;
-}
+
+<style scoped>
+ .small-avatar {
+     width: 50px;
+     height: 50px;
+     border-radius: 50%;
+     object-fit: cover;
+     object-position: center;
+ }
 </style>

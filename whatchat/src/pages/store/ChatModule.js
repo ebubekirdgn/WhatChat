@@ -20,6 +20,28 @@ const ChatModule = {
         },
     },
     actions: {
+        deleteRequest({ }, payload) {
+            var promise = new Promise((resolve, reject) => {
+                db.firerequest.child(firebase.auth().currentUser.uid)
+                    .orderByChild('sender')
+                    .equalTo(payload.uid)
+                    .once('value', snapshot => {
+                        let userkey;
+                        for (var key in snapshot.val()) userkey = key
+                        db.firerequest.child(firebase.auth().currentUser.uid)
+                            .child(userkey)
+                            .remove()
+                            .then(() => {
+                                resolve(true)
+                            }).catch(err => {
+                                reject(err)
+                            })
+                    }).catch(err => {
+                        reject(err)
+                    })
+            })
+            return promise
+        },
         async getMyRequests({ commit, dispatch }) {
             var users = await dispatch('getAllUsers')
 
@@ -33,7 +55,7 @@ const ChatModule = {
                         var user = _.find(users, ["uid", uid])
                         userdetails.push(user)
                     })
-                    commit('setFriendRequests',userdetails)
+                    commit('setFriendRequests', userdetails)
                 })
         },
         getAllUsers({ commit }) {
