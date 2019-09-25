@@ -9,7 +9,7 @@
         <f7-nav-right>
             <f7-link href="/requests/">
                 <f7-icon f7="persons">
-                    <f7-badge color="red">5</f7-badge>
+                    <f7-badge color="red" v-if="friend_requests.length>0">{{friend_requests.length}}</f7-badge>
                 </f7-icon>
             </f7-link>
             <f7-link icon-f7="add" href="/contacts/">
@@ -20,6 +20,7 @@
     </f7-navbar>
 
     <!-- Page content-->
+    <pre>{{friends}}</pre>
     <f7-block strong>
         <p>This is an example of tabs-layout application. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.</p>
 
@@ -68,8 +69,16 @@
 <script>
 export default {
     computed: {
-
+        friends() {
+            return this.$store.getters.friends
+        },
+        friend_requests() {
+            return this.$store.getters.friend_requests
+        },
+    },
+    created() {
+        this.$store.dispatch('getMyRequests')
+        this.$store.dispatch('getMyFriends')
     }
-
 }
 </script>
