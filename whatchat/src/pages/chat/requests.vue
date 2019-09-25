@@ -20,10 +20,10 @@
 export default {
     methods: {
         confirm(request) {
-
+            this.$store.dispatch('confirmRequest', request)
         },
         remove(request) {
-            this.$store.dispatch('deleteRequest',request)
+            this.$store.dispatch('deleteRequest', request)
         }
     },
     computed: {
@@ -39,11 +39,11 @@ export default {
 </script>>
 
 <style scoped>
- .small-avatar {
-     width: 50px;
-     height: 50px;
-     border-radius: 50%;
-     object-fit: cover;
-     object-position: center;
- }
+.small-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
 </style>
