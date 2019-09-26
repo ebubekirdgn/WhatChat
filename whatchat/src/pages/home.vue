@@ -1,5 +1,5 @@
 <template>
-<f7-page name="home">
+<f7-page name="home" @page:beforein="initHome">
     <!-- Top Navbar -->
     <f7-navbar :sliding="false" large>
         <f7-nav-left>
@@ -29,12 +29,17 @@
 </template>
 
 <script>
-import { encode } from 'punycode'
+import {
+    encode
+} from 'punycode'
 export default {
     methods: {
         gotoChat(frd) {
             var frd_string = JSON.stringify(frd)
             this.$f7router.navigate('/chat/' + encodeURIComponent(frd_string))
+        },
+        initHome() {
+            this.$store.commit('setShowTabs', true)
         }
     },
     computed: {

@@ -13,14 +13,19 @@ export default new Vuex.Store({
         chat: ChatModule
     },
     state: {
-        alert_message: null
+        alert_message: null,
+        show_tabbar : true
     },
     getters: {
+        alert_message: state => state.alert_message,
         alert_message: state => state.alert_message
     },
     mutations: {
         setAlertMessage(state, payload) {
             state.alert_message = payload
+        }, 
+        setShowTabs(state, payload) {
+            state.show_tabbar = payload
         }
     }
 })
