@@ -25,6 +25,34 @@ const ChatModule = {
         },
     },
     actions: {
+        sendMessage({ }, payload) {
+            var promise = new Promise((resolve, reject) => {
+                db.firechats.child(firebase.auth().currentUser.uid)
+                    .child(payload.friend.uid)
+                    .push({
+                        sentby: firebase.auth().currentUser.uid,
+                        text: payload.msg,
+                        image: payload.img,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
+                    })
+                    .then(() => {
+                        db.firechats.child(payload.friend.uid)
+                            .child(firebase.auth().currentUser.uid)
+                            .push({
+                                sentby: firebase.auth().currentUser.uid,
+                                text: payload.msg,
+                                image: payload.img,
+                                timestamp: firebase.database.ServerValue.TIMESTAMP
+                            })
+                            .then(() => {
+                                resolve(true)
+                            }).catch(err => {
+                                reject(err)
+                            })
+                    })
+            })
+            return promise
+        },
         confirmRequest({ dispatch }, payload) {
             var promise = new Promise((resolve, reject) => {
                 db.firefriends.child(firebase.auth().currentUser.uid)
