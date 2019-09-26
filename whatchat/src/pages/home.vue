@@ -18,10 +18,10 @@
         </f7-nav-right>
         <f7-nav-title-large sliding>WhatChat </f7-nav-title-large>
     </f7-navbar>
-    <f7-list media-list>
-        <f7-list-item v-for="(frd, index) in friends" :key="index" :title="frd.name">
-            <img class="small-avatar" :src="frd.photo_url" slot="media">
 
+    <f7-list media-list>
+        <f7-list-item  v-for="(frd, index) in friends" :key="index" :title="frd.name" >
+            <img class="small-avatar" :src="frd.photo_url" slot="media">
         </f7-list-item>
     </f7-list>
 
