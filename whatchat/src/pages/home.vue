@@ -20,7 +20,7 @@
     </f7-navbar>
 
     <f7-list media-list>
-        <f7-list-item  v-for="(frd, index) in friends" :key="index" :title="frd.name" >
+        <f7-list-item v-for="(frd, index) in friends" :key="index" :title="frd.name" @click='gotoChat(frd)'>
             <img class="small-avatar" :src="frd.photo_url" slot="media">
         </f7-list-item>
     </f7-list>
@@ -29,7 +29,14 @@
 </template>
 
 <script>
+import { encode } from 'punycode'
 export default {
+    methods: {
+        gotoChat(frd) {
+            var frd_string = JSON.stringify(frd)
+            this.$f7router.navigate('/chat/' + encodeURIComponent(frd_string))
+        }
+    },
     computed: {
         friends() {
             return this.$store.getters.friends
