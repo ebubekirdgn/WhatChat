@@ -3,7 +3,7 @@
     <f7-navbar title="Messages" back-link="Back"></f7-navbar>
 
     <f7-messagebar :placeholder="placeholder" ref="messagebar" :attachments-visible="attachmentsVisible" :sheet-visible="sheetVisible">
-        <f7-link icon-ios="f7:folder" icon-aurora="f7:folder" @click="launchFilePicker" icon-md="material:folder" slot="inner-start" @click="sheetVisible = !sheetVisible"></f7-link>
+        <f7-link icon-ios="f7:folder" icon-aurora="f7:folder" @click="launchFilePicker" icon-md="material:folder" slot="inner-start"></f7-link>
         <f7-link icon-ios="f7:camera_fill" icon-aurora="f7:camera_fill" icon-md="material:camera_alt" slot="inner-start" @click="sheetVisible = !sheetVisible"></f7-link>
         <f7-link icon-ios="f7:arrow_up_fill" icon-aurora="f7:arrow_up_fill" icon-md="material:send" slot="inner-end" @click="sendMessage"></f7-link>
         <f7-messagebar-attachments>
@@ -37,21 +37,13 @@ export default {
             attachments: [],
             sheetVisible: false,
             typingMessage: null,
-            images: [
-                'https://cdn.framework7.io/placeholder/cats-300x300-1.jpg',
-                'https://cdn.framework7.io/placeholder/cats-200x300-2.jpg',
-                'https://cdn.framework7.io/placeholder/cats-400x300-3.jpg',
-                'https://cdn.framework7.io/placeholder/cats-300x150-4.jpg',
-                'https://cdn.framework7.io/placeholder/cats-150x300-5.jpg',
-                'https://cdn.framework7.io/placeholder/cats-300x300-6.jpg',
-                'https://cdn.framework7.io/placeholder/cats-300x300-7.jpg',
-                'https://cdn.framework7.io/placeholder/cats-200x300-8.jpg',
-                'https://cdn.framework7.io/placeholder/cats-400x300-9.jpg',
-                'https://cdn.framework7.io/placeholder/cats-300x150-10.jpg',
-            ],
+
         };
     },
     computed: {
+        images() {
+            return this.$store.getters.images
+        },
         chat_messages() {
             return this.$store.getters.chat_messages
         },
@@ -76,7 +68,7 @@ export default {
             this.$refs.file.click()
         },
         onFilePicked() {
-
+            this.$store.dispatch('readFileMessage')
         },
         isFirstMessage(message, index) {
             const self = this;

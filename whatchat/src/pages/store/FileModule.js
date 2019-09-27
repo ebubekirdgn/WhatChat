@@ -3,11 +3,13 @@ import firebase from 'firebase';
 const FileModule = {
     state: {
         image_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1024px-Circle-icons-profile.svg.png",
-        files: null
+        files: null,
+        images: []
     },
     getters: {
         image_url: state => state.image_url,
-        files: state => state.files
+        files: state => state.files,
+        images: state => state.images
     },
     mutations: {
         setImageURL(state, payload) {
@@ -15,10 +17,30 @@ const FileModule = {
         },
         setFiles(state, payload) {
             state.files = payload
+        },
+        setImages(state, payload) {
+            state.images = payload
         }
     },
     actions: {
         readFile({ commit }) {
+            const files = event.target.file;
+            for (let i = 0; i < files.length; i++) {
+                var file = files[i]
+                if (!file.type.match("image")) {
+                    continue;
+                }
+                var picReader = new FileReader()
+                var images = []
+                picReader.addEventListener('load', event => {
+                    var picFile = event.target
+                    images.push(picFile.result)
+                })
+                commit('setImages', images)
+                picReader.readAsDataURL(file)
+            }
+        },
+        readFileMessage({ commit }) {
             const files = event.target.files;
             commit('setFiles', files)
             const fileReader = new FileReader();
