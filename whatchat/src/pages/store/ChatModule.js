@@ -152,7 +152,8 @@ const ChatModule = {
         getAllUsers({ commit }) {
             var promise = new Promise((resolve, reject) => {
                 firebase.database().ref('users').on('value', function (snapshot) {
-                    //console.log(snapshot.val())
+                     //TODO Current user kendini ekleyemesin. 
+                    console.log(snapshot.val)
                     commit('setContacts', snapshot.val())
                     resolve(snapshot.val())
                 })
