@@ -14,12 +14,15 @@
     </f7-messagebar>
 
     <f7-messages ref="messages">
-        <f7-messages-title><b>Sunday, Feb 9,</b> 12:58</f7-messages-title>
-        <f7-message v-for="(message, index) in chat_messages" :key="index" :type="message.type" :image="message.image" :name="message.name" :avatar="message.avatar" :first="isFirstMessage(message, index)" :last="isLastMessage(message, index)" :tail="isTailMessage(message, index)">
-            <span slot="text" v-if="message.text" v-html="message.text"></span>
-        </f7-message>
-        <f7-message v-if="typingMessage" type="received" :typing="true" :first="true" :last="true" :tail="true" :header="`${typingMessage.name} is typing`" :avatar="typingMessage.avatar"></f7-message>
+        <div v-for="(messages,index) in chat_messages" :key="index">
+            <f7-messages-title><b>{{index}} </b></f7-messages-title>
+            <f7-message v-for="(message, i) in messages" :key="i" :type="message.type" :image="message.image" :name="message.name" :avatar="message.avatar" :first="isFirstMessage(message, index)" :last="isLastMessage(message, index)" :tail="isTailMessage(message, index)">
+                <span slot="text" v-if="message.text" v-html="message.text"></span>
+            </f7-message>
+            <f7-message v-if="typingMessage" type="received" :typing="true" :first="true" :last="true" :tail="true" :header="`${typingMessage.name} is typing`" :avatar="typingMessage.avatar"></f7-message>
+        </div>
     </f7-messages>
+
 </f7-page>
 </template>
 

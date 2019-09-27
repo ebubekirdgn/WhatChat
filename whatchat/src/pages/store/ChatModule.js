@@ -30,6 +30,7 @@ const ChatModule = {
         },
     },
     actions: {
+
         getChatMessages({ commit }, payload) {
             var current_user = firebase.auth().currentUser
             db.firechats.child(current_user.uid)
@@ -42,9 +43,11 @@ const ChatModule = {
                         message.avatar = message.sentby == current_user.uid ? current_user.photoURL : payload.photoURL;
                         message.date = moment(message.timestamp).format("MMMM Do dddd");
                     })
+                    var groupedmessages = _.groupBy(messages,'date')
                     commit('setChatMessages', messages)
                 })
         },
+
         sendMessage({ }, payload) {
             var promise = new Promise((resolve, reject) => {
                 db.firechats.child(firebase.auth().currentUser.uid)
@@ -73,6 +76,7 @@ const ChatModule = {
             })
             return promise
         },
+
         confirmRequest({ dispatch }, payload) {
             var promise = new Promise((resolve, reject) => {
                 db.firefriends.child(firebase.auth().currentUser.uid)
@@ -114,6 +118,7 @@ const ChatModule = {
             })
             return promise
         },
+
         async getMyRequests({ commit, dispatch }) {
             var users = await dispatch('getAllUsers')
 
@@ -143,16 +148,18 @@ const ChatModule = {
                     commit('setFriends', userdetails)
                 })
         },
+
         getAllUsers({ commit }) {
             var promise = new Promise((resolve, reject) => {
                 firebase.database().ref('users').on('value', function (snapshot) {
-                    console.log(snapshot.val())
+                    //console.log(snapshot.val())
                     commit('setContacts', snapshot.val())
                     resolve(snapshot.val())
                 })
             })
             return promise
         },
+
         sendRequest({ commit }, payload) {
             var promise = new Promise((resolve, reject) => {
                 db.firerequest.child(payload.receipent).push({ sender: payload.sender })
