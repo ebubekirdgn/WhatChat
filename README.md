@@ -28,3 +28,4 @@ This project will cover
  * $ npm i firebase --save
  * $ npm i --save lodash
  * $ npm i @babel/plugin-transform-runtime --save-dev
+ * $ npm install moment --save   # npm
