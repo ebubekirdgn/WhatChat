@@ -1,8 +1,9 @@
 <template>
 <f7-page>
-    <f7-navbar title="Messsages" back-link="Back"></f7-navbar>
+    <f7-navbar title="Messages" back-link="Back"></f7-navbar>
 
     <f7-messagebar :placeholder="placeholder" ref="messagebar" :attachments-visible="attachmentsVisible" :sheet-visible="sheetVisible">
+        <f7-link icon-ios="f7:folder" icon-aurora="f7:folder" @click="launchFilePicker" icon-md="material:folder" slot="inner-start" @click="sheetVisible = !sheetVisible"></f7-link>
         <f7-link icon-ios="f7:camera_fill" icon-aurora="f7:camera_fill" icon-md="material:camera_alt" slot="inner-start" @click="sheetVisible = !sheetVisible"></f7-link>
         <f7-link icon-ios="f7:arrow_up_fill" icon-aurora="f7:arrow_up_fill" icon-md="material:send" slot="inner-end" @click="sendMessage"></f7-link>
         <f7-messagebar-attachments>
@@ -14,7 +15,7 @@
     </f7-messagebar>
 
     <f7-messages ref="messages">
-        <div v-for="(messages,index) in chat_messages" :key="index">
+        <div class="messages" v-for="(messages,index) in chat_messages" :key="index">
             <f7-messages-title><b>{{index}} </b></f7-messages-title>
             <f7-message v-for="(message, i) in messages" :key="i" :type="message.type" :image="message.image" :name="message.name" :avatar="message.avatar" :first="isFirstMessage(message, index)" :last="isLastMessage(message, index)" :tail="isTailMessage(message, index)">
                 <span slot="text" v-if="message.text" v-html="message.text"></span>
@@ -22,6 +23,8 @@
             <f7-message v-if="typingMessage" type="received" :typing="true" :first="true" :last="true" :tail="true" :header="`${typingMessage.name} is typing`" :avatar="typingMessage.avatar"></f7-message>
         </div>
     </f7-messages>
+
+    <input type="file" ref="file" style="display:none;" @change="onFilePicked" multiple />
 
 </f7-page>
 </template>
@@ -69,6 +72,12 @@ export default {
         });
     },
     methods: {
+        launchFilePicker() {
+            this.$refs.file.click()
+        },
+        onFilePicked() {
+
+        },
         isFirstMessage(message, index) {
             const self = this;
             const previousMessage = self.chat_messages[index - 1];
