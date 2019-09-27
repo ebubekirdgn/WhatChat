@@ -15,7 +15,7 @@
 
     <f7-messages ref="messages">
         <f7-messages-title><b>Sunday, Feb 9,</b> 12:58</f7-messages-title>
-        <f7-message v-for="(message, index) in messagesData" :key="index" :type="message.type" :image="message.image" :name="message.name" :avatar="message.avatar" :first="isFirstMessage(message, index)" :last="isLastMessage(message, index)" :tail="isTailMessage(message, index)">
+        <f7-message v-for="(message, index) in chat_messages" :key="index" :type="message.type" :image="message.image" :name="message.name" :avatar="message.avatar" :first="isFirstMessage(message, index)" :last="isLastMessage(message, index)" :tail="isTailMessage(message, index)">
             <span slot="text" v-if="message.text" v-html="message.text"></span>
         </f7-message>
         <f7-message v-if="typingMessage" type="received" :typing="true" :first="true" :last="true" :tail="true" :header="`${typingMessage.name} is typing`" :avatar="typingMessage.avatar"></f7-message>
@@ -122,6 +122,9 @@ export default {
         };
     },
     computed: {
+        chat_messages() {
+            return this.$store.getters.chat_messages
+        },
         attachmentsVisible() {
             const self = this;
             return self.attachments.length > 0;
@@ -194,10 +197,10 @@ export default {
             if (messagesToSend.length === 0) {
                 return;
             }
-            this.$store.dispatch('sendMessage',{
-                friend:self.friend,
-                msg:text,
-                img:null
+            this.$store.dispatch('sendMessage', {
+                friend: self.friend,
+                msg: text,
+                img: null
             })
             // Reset attachments
             self.attachments = [];
@@ -214,6 +217,7 @@ export default {
         let param = decodeURIComponent(this.$f7route.params.frd)
         this.friend = JSON.parse(param)
         this.$store.commit('setShowTabs', false)
+        this.$store.dispatch('getChatMessages', this.friend)
 
     }
 };
