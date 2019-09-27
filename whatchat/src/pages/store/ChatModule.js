@@ -1,16 +1,18 @@
 import firebase from 'firebase';
 import * as db from './db';
-
+import moment from 'moment';
 
 const ChatModule = {
     state: {
         contacts: [],
         friend_requests: [],
         friends: [],
+        chat_messages: [],
     },
     getters: {
         contacts: state => state.contacts,
         friend_requests: state => state.friend_requests,
+        chat_messages: state => state.chat_messages,
         friends: state => state.friends,
     },
     mutations: {
@@ -23,8 +25,26 @@ const ChatModule = {
         setFriends(state, payload) {
             state.friends = payload
         },
+        setChatMessages(state, payload) {
+            state.chat_messages = payload
+        },
     },
     actions: {
+        getChatMessages({ commit }, payload) {
+            var current_user = firebase.auth().currentUser
+            db.firechats.child(current_user.uid)
+                .child(payload.uid)
+                .on('value', snapshot => {
+                    var messages = snapshot.val()
+                    _.forEach(messages, message => {
+                        message.type = message.sentby == current_user.uid ? 'sent' : 'received';
+                        message.name = message.sentby == current_user.uid ? current_user.displayName : payload.name;
+                        message.avatar = message.sentby == current_user.uid ? current_user.photoURL : payload.photoURL;
+                        message.date = moment(message.timestamp).format("MMMM Do dddd");
+                    })
+                    commit('setChatMessages', messages)
+                })
+        },
         sendMessage({ }, payload) {
             var promise = new Promise((resolve, reject) => {
                 db.firechats.child(firebase.auth().currentUser.uid)
