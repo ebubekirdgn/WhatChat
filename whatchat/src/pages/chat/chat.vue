@@ -97,7 +97,7 @@ export default {
         },
         handleAttachment(e) {
             const self = this;
-            const index = self.$(e.target).parents('label.checkbox').index();
+            const index = self.$$(e.target).parents('label.checkbox').index();
             const image = self.images[index];
             if (e.target.checked) {
                 // Add to attachments
@@ -124,11 +124,24 @@ export default {
             if (messagesToSend.length === 0) {
                 return;
             }
-            this.$store.dispatch('sendMessage', {
-                friend: self.friend,
-                msg: text,
-                img: null
-            })
+            if (self.attachments.length > 0) {
+                _.forEach(self.attachments, attachment => {
+                    self.$store.dispatch('uploadChatImages', attachment)
+                        .then(url => {
+                            self.$store.dispatch('sendMessage', {
+                                friend: self.friend,
+                                msg: text,
+                                img: url
+                            })
+                        })
+                });
+            } else {
+                self.$store.dispatch('sendMessage', {
+                    friend: self.friend,
+                    msg: text,
+                    img: null    
+                })
+            }
             // Reset attachments
             self.attachments = [];
             // Hide sheet
