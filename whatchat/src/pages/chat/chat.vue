@@ -37,7 +37,6 @@ export default {
             attachments: [],
             sheetVisible: false,
             typingMessage: null,
-
         };
     },
     computed: {
