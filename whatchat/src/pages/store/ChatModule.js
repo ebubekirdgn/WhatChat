@@ -193,12 +193,22 @@ const ChatModule = {
 
             db.firefriends.child(firebase.auth().currentUser.uid)
                 .on('value', snapshot => {
-                    var frds_id = _.map(snapshot.val(), "uid")
+                    //  var frds_id = _.map(snapshot.val(), "uid")
+                    var friends = snapshot.val()
                     var userdetails = []
-                    _.forEach(frds_id, uid => {
-                        var user = _.find(users, ["uid", uid])
+
+                    _.forEach(friends, (frd,key) => {
+                        var user = _.find(users, ["uid", frd.uid])
+                        
+                        if (frd.latest_message) {
+                            user.latest_message = frd.latest_message
+                        } else {
+                            user.latest_message = ''
+                        }
+                        user.frd_key = key
                         userdetails.push(user)
                     })
+
                     commit('setFriends', userdetails)
                 })
         },

@@ -97,7 +97,7 @@ export default {
         },
         handleAttachment(e) {
             const self = this;
-            const index = self.$$(e.target).parents('label.checkbox').index();
+            const index = self.$(e.target).parents('label.checkbox').index();
             const image = self.images[index];
             if (e.target.checked) {
                 // Add to attachments
@@ -139,7 +139,7 @@ export default {
                 self.$store.dispatch('sendMessage', {
                     friend: self.friend,
                     msg: text,
-                    img: null    
+                    img: null
                 })
             }
             // Reset attachments
