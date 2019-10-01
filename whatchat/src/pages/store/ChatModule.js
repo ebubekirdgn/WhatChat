@@ -30,7 +30,22 @@ const ChatModule = {
         },
     },
     actions: {
-
+        getUserKey({ }, payload) {
+            var promise = new Promise((resolve, reject) => {
+                var frd_id = payload.friend.uid
+                db.firefriends.child(frd_id)
+                    .orderByChild("uid")
+                    .equalTo(firebase.auth().currentUser().uid)
+                    .once('value', snapshot => {
+                        let userkey;
+                        for (var key in snapshot.val()) userkey = key;
+                        resolve(userkey)
+                    }).catch(err => {
+                        reject(err)
+                    })
+            })
+            return promise
+        },
         getChatMessages({ commit }, payload) {
             var current_user = firebase.auth().currentUser
             db.firechats.child(current_user.uid)
@@ -43,7 +58,7 @@ const ChatModule = {
                         message.avatar = message.sentby == current_user.uid ? current_user.photoURL : payload.photoURL;
                         message.date = moment(message.timestamp).format("MMMM Do dddd");
                     })
-                    var groupedmessages = _.groupBy(messages,'date')
+                    var groupedmessages = _.groupBy(messages, 'date')
                     commit('setChatMessages', messages)
                 })
         },
@@ -152,7 +167,7 @@ const ChatModule = {
         getAllUsers({ commit }) {
             var promise = new Promise((resolve, reject) => {
                 firebase.database().ref('users').on('value', function (snapshot) {
-                     //TODO Current user kendini ekleyemesin. 
+                    //TODO Current user kendini ekleyemesin. 
                     console.log(snapshot.val)
                     commit('setContacts', snapshot.val())
                     resolve(snapshot.val())
