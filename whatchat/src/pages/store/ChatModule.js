@@ -30,6 +30,39 @@ const ChatModule = {
         },
     },
     actions: {
+
+        async sendLatestMessage({ }, payload) {
+            var user_id = firebase.auth().currentUser.uid
+            var user_key = payload.userkey
+            var frd_id = payload.friend.uid
+            var frd_key = payload.friend.frd_key
+            var latest_message = ''
+            if (payload.img != null) {
+                latest_message = 'photo'
+            }
+            else {
+                latest_message = payload.msg
+            }
+
+            try {
+                await db.firefriends.child(user_id)
+                    .child(frd_key)
+                    .update({
+                        latest_message: latest_message
+                    })
+
+                await db.firefriends.child(frd_id)
+                    .child(user_key)
+                    .update({
+                        latest_message: latest_message
+                    })
+
+            } catch (error) {
+
+            }
+
+        },
+
         getUserKey({ }, payload) {
             var promise = new Promise((resolve, reject) => {
                 var frd_id = payload.friend.uid
