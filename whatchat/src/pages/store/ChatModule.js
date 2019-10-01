@@ -79,6 +79,7 @@ const ChatModule = {
             })
             return promise
         },
+
         getChatMessages({ commit }, payload) {
             var current_user = firebase.auth().currentUser
             db.firechats.child(current_user.uid)
@@ -96,9 +97,13 @@ const ChatModule = {
                 })
         },
 
-        sendMessage({ }, payload) {
-            var promise = new Promise((resolve, reject) => {
-                db.firechats.child(firebase.auth().currentUser.uid)
+        async sendMessage({ dispatch }, payload) {
+            var userkey = await dispatch('getUserKey', payload)
+            var frd_info = payload
+            frd_info.userkey = userkey
+            dispatch('sendLatestMessage', frd_info)
+            try {
+                await db.firechats.child(firebase.auth().currentUser.uid)
                     .child(payload.friend.uid)
                     .push({
                         sentby: firebase.auth().currentUser.uid,
@@ -106,23 +111,24 @@ const ChatModule = {
                         image: payload.img,
                         timestamp: firebase.database.ServerValue.TIMESTAMP
                     })
-                    .then(() => {
-                        db.firechats.child(payload.friend.uid)
-                            .child(firebase.auth().currentUser.uid)
-                            .push({
-                                sentby: firebase.auth().currentUser.uid,
-                                text: payload.msg,
-                                image: payload.img,
-                                timestamp: firebase.database.ServerValue.TIMESTAMP
-                            })
-                            .then(() => {
-                                resolve(true)
-                            }).catch(err => {
-                                reject(err)
-                            })
+                await db.firechats.child(payload.friend.uid)
+                    .child(firebase.auth().currentUser.uid)
+                    .push({
+                        sentby: firebase.auth().currentUser.uid,
+                        text: payload.msg,
+                        image: payload.img,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
                     })
-            })
-            return promise
+                    .then(() => {
+                        resolve(true)
+                    }).catch(err => {
+                        reject(err)
+                    })
+
+            } catch (error) {
+                console.log(error)
+            }
+
         },
 
         confirmRequest({ dispatch }, payload) {
