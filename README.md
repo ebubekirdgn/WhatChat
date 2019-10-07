@@ -19,7 +19,7 @@ This project will cover
 
 # Installation steps
 
-```javascript
+```html
 
  First of all you should go to visit this web site : https://framework7.io/cli/
  
