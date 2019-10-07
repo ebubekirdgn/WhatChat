@@ -18,6 +18,9 @@ This project will cover
 * Group chat
 
 # Installation steps
+
+```javascript
+
  First of all you should go to visit this web site : https://framework7.io/cli/
  
  * $ npm install (https://docs.npmjs.com/cli/install)
@@ -29,3 +32,6 @@ This project will cover
  * $ npm install --save lodash
  * $ npm install @babel/plugin-transform-runtime --save-dev
  * $ npm install moment --save
+
+ 
+```
