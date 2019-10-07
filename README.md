@@ -20,7 +20,6 @@ This project will cover
 # Installation steps
 
 ```javascript
-
  First of all you should go to visit this web site : https://framework7.io/cli/
  
  1. $ npm install (https://docs.npmjs.com/cli/install)
@@ -32,46 +31,5 @@ This project will cover
  7. $ npm install --save lodash
  8. $ npm install @babel/plugin-transform-runtime --save-dev
  9. $ npm install moment --save
-
- 
 ```
-           ####Javascript　
-
-```javascript
-function test(){
-	console.log("Hello world!");
-}
  
-(function(){
-    var box = function(){
-        return box.fn.init();
-    };
-
-    box.prototype = box.fn = {
-        init : function(){
-            console.log('box.init()');
-
-			return this;
-        },
-
-		add : function(str){
-			alert("add", str);
-
-			return this;
-		},
-
-		remove : function(str){
-			alert("remove", str);
-
-			return this;
-		}
-    };
-    
-    box.fn.init.prototype = box.fn;
-    
-    window.box =box;
-})();
-
-var testBox = box();
-testBox.add("jQuery").remove("jQuery");
-```
