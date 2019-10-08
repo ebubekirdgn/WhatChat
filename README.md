@@ -52,6 +52,6 @@ This project will cover
  ```diff
 
 + text in green
-! text in orange
+!  asdasdas
 # text in gray
 ```
