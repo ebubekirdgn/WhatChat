@@ -30,8 +30,9 @@ This project will cover
  6. $ npm install firebase --save
  7. $ npm install --save lodash
  8. $ npm install @babel/plugin-transform-runtime --save-dev
- ```diff -   Warning : The first time you compile the application you will receive the following error :
-             "config to use async/await in this project (Uncaught ReferenceError: regeneratorRuntime is not defined)"```
+  Warning : The first time you compile the application you will receive the following error :
+  "config to use async/await in this project (Uncaught ReferenceError: regeneratorRuntime is not defined)"
+  
   The Solution : https://github.com/framework7io/framework7-template-vue-webpack/issues/71
   More details : 
     first time you should install from the terminal : npm i @babel/plugin-transform-runtime --save-dev
