@@ -21,7 +21,9 @@ This project will cover
 
 ```javascript
  First of all you should go to visit this web site : https://framework7.io/cli/
- 
+ <div class="text-orange-light mb-2">
+  .text-orange-light on white
+</div>
  1. $ npm install (https://docs.npmjs.com/cli/install)
  2. $ npm install -g cordova
  3. $ npm install -g framework7-cli
