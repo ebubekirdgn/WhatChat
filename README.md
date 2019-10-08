@@ -32,9 +32,9 @@ This project will cover
  8. $ npm install @babel/plugin-transform-runtime --save-dev
  Warning : The first time you compile the application you will receive the following error :
  "config to use async/await in this project (Uncaught ReferenceError: regeneratorRuntime is not defined)"
- # Installation steps
-  The Solution : https://github.com/framework7io/framework7-template-vue-webpack/issues/71
-  More details : 
+
+ The Solution : https://github.com/framework7io/framework7-template-vue-webpack/issues/71
+ More details : 
     first time you should install from the terminal : npm i @babel/plugin-transform-runtime --save-dev
     last step is add to babel.config.js plugins: 
               "plugins": [
